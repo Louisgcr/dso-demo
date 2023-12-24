@@ -38,10 +38,10 @@ pipeline {
             }
           }
         }
-	stage('Docker BnP') {
+	stage('OCI Image BnP') {
 	  steps {
 	    container('kaniko') {
-	      sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=docker.io/louiscgr/dsodemo'
+	      sh '/kaniko/executor --dockerfile `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=docker.io/louiscgr/dsodemo'
 	    }
 	  }
 	}
