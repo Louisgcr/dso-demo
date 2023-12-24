@@ -40,11 +40,17 @@ pipeline {
         }
 	stage('OCI Image BnP') {
 	  steps {
-	    container('kaniko') {
-	      sh '/kaniko/executor --dockerfile `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=docker.io/louiscgr/dsodemo --force'
+	    checkout scm
+	    container(name: 'kaniko', shell: '/busybox/sh') {
+	      withEnv(['PATH+EXTRA=/busybox']) {
+	        sh '''#!/busybox/sh
+	          /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=docker.io/louiscgr/dsodemo --force
+	        '''
+		
+	      }
 	    }
 	  }
-	}
+        }
       }
     }
 
