@@ -6,18 +6,13 @@ metadata:
 spec:
   containers:
     - name: maven
-      image: maven
+      image: maven:alpine
       command:
         - cat
       tty: true
       volumeMounts:
         - name: m2
           mountPath: /root/.m2/
-      resources:
-        requests:
-          memory: "50Mi"
-        limits:
-          memory: "3000Mi"
     - name: docker-tools
       image: rmkanda/docker-tools:latest
       command:
@@ -55,11 +50,6 @@ spec:
       command:
         - cat
       tty: true
-      resources:
-        requests:
-          memory: "50Mi"
-        limits:
-          memory: "100Mi"
   volumes:
     - name: m2
       hostPath:
