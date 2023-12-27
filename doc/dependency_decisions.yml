@@ -41,6 +41,12 @@
     :why: 
     :versions: []
     :when: 2020-05-31 15:27:29.688403000 Z
+- - :permit
+  - Eclipse Public License 1.0, GNU Lesser General Public License
+  - :who:
+    :why:
+    :versions: []
+    :when: 2020-05-31 15:27:29.688403000 Z
 - - :approve
   - logback-core
   - :who: 
