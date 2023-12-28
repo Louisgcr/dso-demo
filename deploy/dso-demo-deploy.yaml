@@ -1,0 +1,5 @@
+kubectl create deployment dso-demo \
+  --image=louisgcr/dso-demo \
+  --replicas=1 \
+  --port=8080 \
+  --dry-run=client -o yaml | tee deploy/dso-demo-deploy.yaml

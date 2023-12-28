@@ -1,0 +1,4 @@
+kubectl create service nodeport \
+  dso-demo --tcp=8080 \
+  --node-port=30080 \
+  --dry-run -o yaml | tee deploy/dso-demo-svc.yaml
