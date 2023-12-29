@@ -28,21 +28,21 @@ pipeline {
           }
         }
 
-        stage('SCA'){
-          steps {
-            container('maven'){
-              catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                 sh 'mvn org.owasp:dependency-check-maven:check'
-              }
-            } 
-          }
-          post {
-            always {
-              archiveArtifacts allowEmptyArchive: true, artifacts: 'target/dependency-check-report.html', fingerprint: true, onlyIfSuccessful: true
+        //stage('SCA'){
+        //  steps {
+        //    container('maven'){
+        //      catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+        //         sh 'mvn org.owasp:dependency-check-maven:check'
+        //      }
+        //    } 
+        //  }
+        //  post {
+        //    always {
+        //     archiveArtifacts allowEmptyArchive: true, artifacts: 'target/dependency-check-report.html', fingerprint: true, onlyIfSuccessful: true
 // dependencyCheckPublisher pattern: 'report.xml'
-            }
-          }
-        }
+        //    }
+        //  }
+        //}
         stage('OSS License Checker') {
           steps {
             container('licensefinder') {
@@ -71,18 +71,19 @@ pipeline {
         }
       }
     }
-    //stage('SAST') {
-    //  steps {
-    //    container('slscan') {
-    //      sh 'scan --type java,depscan --build'
-    //    }
-    //  }
-    //  post {
-    //    success {
-    //      archiveArtifacts allowEmptyArchive: true, artifacts: 'reports/*', fingerprint: true, onlyIfSuccessful: true
-    //    }
-    //  }
-    //}
+    stage('SAST') {
+      steps {
+        container('slscan') {
+          sh 'scan --type java,depscan --build'
+        }
+      }
+      post {
+        success {
+          //archiveArtifacts allowEmptyArchive: true, artifacts: 'reports/*', fingerprint: true, onlyIfSuccessful: true
+          archiveArtifacts allowEmptyArchive: true, artifacts: 'reports/*', fingerprint: true
+        }
+      }
+    }
     stage('Package') {
       parallel {
         stage('Create Jarfile') {
