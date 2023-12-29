@@ -13,11 +13,6 @@ spec:
       volumeMounts:
         - name: m2
           mountPath: /root/.m2/
-      resources:
-        requests:
-          memory: "50Mi"
-        limits:
-          memory: "3000Mi"
     - name: docker-tools
       image: rmkanda/docker-tools:latest
       command:
