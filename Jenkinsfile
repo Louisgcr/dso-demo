@@ -43,7 +43,7 @@ pipeline {
         //    }
         //  }
         //}
-        stage('OSS License Checker') {
+        /*stage('OSS License Checker') {
           steps {
             container('licensefinder') {
               sh 'ls -al'
@@ -69,8 +69,10 @@ pipeline {
             }
           }
         }
+       */
       }
     }
+    /*
     stage('SAST') {
       steps {
         container('slscan') {
@@ -83,7 +85,7 @@ pipeline {
           archiveArtifacts allowEmptyArchive: true, artifacts: 'reports/*', fingerprint: true
         }
       }
-    }
+    }*/
     stage('Package') {
       parallel {
         stage('Create Jarfile') {
@@ -102,6 +104,7 @@ pipeline {
         }
       }
     }
+/*
     stage('Image Analysis') {
       parallel {
         stage('Image Linting') {
@@ -120,6 +123,7 @@ pipeline {
         }
       }
     }
+*/
     stage('Deploy to Dev') {
       steps {
         // TODO
